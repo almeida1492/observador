@@ -18,6 +18,8 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.System.out;
+
 public class QueryUtils {
 
     public final static String URL = "https://www.observador.soulcodejr.com/php/upload.php";
@@ -28,11 +30,14 @@ public class QueryUtils {
     public static String postImage(Bitmap image){
         String response = "";
 
+        Bitmap imageSmall = Bitmap.createScaledBitmap(image, (int) (image.getWidth() * 0.3), (int) (image.getHeight() * 0.3), false);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        imageSmall.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
 
-        String request = "encoded_image=" + Base64.encodeToString(byteArray, Base64.DEFAULT);
+        String request = "encoded_image=data:image/png;base64," + Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+        Log.e(LOG_TAG, request);
         // Create URL object
         URL url = createUrl(URL);
 
