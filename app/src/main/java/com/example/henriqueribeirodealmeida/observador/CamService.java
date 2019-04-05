@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.androidhiddencamera.CameraConfig;
@@ -64,7 +63,6 @@ public class CamService extends HiddenCameraService {
             }
         } else {
 
-            //TODO Ask your parent activity for providing runtime permission
             Toast.makeText(this, "Camera permission not available", Toast.LENGTH_SHORT).show();
         }
         return START_NOT_STICKY;
