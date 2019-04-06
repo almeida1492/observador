@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.henriqueribeirodealmeida.observador.utils.ImgUtils;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import java.util.Map;
 
 public class QueryUtils {
 
+    private final static int MAX_WIDTH = 500, MAX_HEIGHT = 500;
     private final static String LOG_TAG = QueryUtils.class.getName();
     public final static String URL = "https://www.observador.soulcodejr.com/php/upload.php";
 
@@ -31,7 +34,8 @@ public class QueryUtils {
     public static String postImage(Bitmap image){
         String response = "";
 
-        Bitmap imageSmall = Bitmap.createScaledBitmap(image, (int) (image.getWidth() * 0.3), (int) (image.getHeight() * 0.3), false);
+        //Bitmap imageSmall = Bitmap.createScaledBitmap(image, (int) (image.getWidth() * 0.3), (int) (image.getHeight() * 0.3), false);
+        Bitmap imageSmall = ImgUtils.scaleBitmap(MAX_WIDTH, MAX_HEIGHT, image);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         imageSmall.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
