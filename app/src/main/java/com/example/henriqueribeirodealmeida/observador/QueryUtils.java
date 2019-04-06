@@ -1,6 +1,9 @@
 package com.example.henriqueribeirodealmeida.observador;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
@@ -18,12 +21,10 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.System.out;
-
 public class QueryUtils {
 
-    public final static String URL = "https://www.observador.soulcodejr.com/php/upload.php";
     private final static String LOG_TAG = QueryUtils.class.getName();
+    public final static String URL = "https://www.observador.soulcodejr.com/php/upload.php";
 
     private QueryUtils() {}
 
@@ -118,5 +119,15 @@ public class QueryUtils {
             Log.e("NETWORKING", "Error with creating URL ", e);
         }
         return url;
+    }
+
+    public static boolean isConnected(Context context){
+        ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 }
